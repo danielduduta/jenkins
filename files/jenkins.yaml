@@ -1,0 +1,36 @@
+jenkins:
+  systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin\n"
+  numExecutors: 1
+  scmCheckoutRetryCount: 2
+  mode: NORMAL
+  globalNodeProperties:
+  authorizationStrategy:
+    roleBased:
+      roles:
+        global:
+          - name: "admin"
+            description: "Jenkins administrators"
+            permissions:
+              - "Overall/Administer"
+            entries:
+              - user: "demo"
+  views:
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: demo
+          password: demo
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - string:
+              scope: GLOBAL
+              id: "slack-token"
+              secret: "${SLACK_TOKEN}"
+              description: Slack token
+security:
+  gitHostKeyVerificationConfiguration:
+    sshHostKeyVerificationStrategy: "acceptFirstConnectionStrategy"
+
